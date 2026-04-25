@@ -1,12 +1,13 @@
 #include "segnalazioni.h"
 
 int main() {
-    Segnalazione* listaSegnalazioni = NULL; // Inizializza la lista vuota
-    int contatoreCodici = 1;                // Contatore per i codici univoci
-    int scelta;
+    Segnalazione* listaSegnalazioni = NULL; //Inizializza la lista vuota
+    int contatoreCodici = 1;                //Contatore per i codici unici
+    int scelta;                             //Consence di scegliere l'operazione
 
+    
     do {
-        // Stampa del menu interattivo
+        //Stampa del menu
         printf("\n--- GESTIONE SEGNALAZIONI COMUNE ---\n");
         printf("1. Registra nuova segnalazione\n");
         printf("2. Visualizza tutte le segnalazioni\n");
@@ -20,50 +21,50 @@ int main() {
 
         switch (scelta) {
             case 1:
-                listaSegnalazioni = inserisciSegnalazione(listaSegnalazioni, &contatoreCodici);
-                break;
+                    listaSegnalazioni = inserisciSegnalazione(listaSegnalazioni, &contatoreCodici);
+                    break;
             case 2:
-                visualizzaTutte(listaSegnalazioni);
-                break;
+                    visualizzaTutte(listaSegnalazioni);
+                    break;
             case 3: {
-                char cat[50];
-                printf("Inserisci la categoria da cercare: ");
-                scanf(" %[^\n]", cat);
-                ricercaPerCategoria(listaSegnalazioni, cat);
-                break;
+                    char cat[50];
+                    printf("Inserisci la categoria da cercare: ");
+                    scanf(" %[^\n]", cat);
+                    ricercaPerCategoria(listaSegnalazioni, cat);
+                    break;
             }
             case 4: {
-                int cod, st;
-                printf("Codice segnalazione: ");
-                scanf("%d", &cod);
-                printf("Nuovo stato (0=Aperta, 1=Lavorazione, 2=Chiusa): ");
-                scanf("%d", &st);
-                aggiornaStato(listaSegnalazioni, cod, st);
-                break;
+                    int cod, st;
+                    printf("Codice segnalazione: ");
+                    scanf("%d", &cod);
+                    printf("Nuovo stato (0=Aperta, 1=Lavorazione, 2=Chiusa): ");
+                    scanf("%d", &st);
+                    aggiornaStato(listaSegnalazioni, cod, st);
+                    break;
             }
             case 5: {
-                int cod;
-                printf("Codice segnalazione da eliminare: ");
-                scanf("%d", &cod);
-                listaSegnalazioni = eliminaSegnalazione(listaSegnalazioni, cod);
-                break;
+                    int cod;
+                    printf("Codice segnalazione da eliminare: ");
+                    scanf("%d", &cod);
+                    listaSegnalazioni = eliminaSegnalazione(listaSegnalazioni, cod);
+                    break;
             }
             case 6:
-                generaReport(listaSegnalazioni);
-                break;
+                    generaReport(listaSegnalazioni);
+                    break;
             case 0:
-                printf("Uscita dal programma. Arrivederci!\n");
-                break;
+                    printf("Uscita dal programma. Arrivederci!\n");
+                    break;
             default:
-                printf("Scelta non valida. Riprova.\n");
+                    printf("Scelta non valida. Riprova.\n");
         }
     } while (scelta != 0);
 
-    // Prima di uscire, sarebbe buona pratica liberare tutta la memoria allocata rimasta (free della lista)
+    //Liberazione della memoria 
     Segnalazione* current = listaSegnalazioni;
     Segnalazione* next_node;
     while (current != NULL) {
-        next_node = current->next;
+        next_node = current -> next;
         free(current);
         current = next_node;
     }
