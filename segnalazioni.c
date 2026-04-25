@@ -1,36 +1,36 @@
 #include "segnalazioni.h"
 
-// Funzione per registrare una nuova segnalazione
+//Funzione per registrare una nuova segnalazione
 Segnalazione* inserisciSegnalazione(Segnalazione* head, int* contatoreId) {
-    // Allocazione dinamica di un nuovo nodo in memoria
+    //Allocazione memoria dinamica per creazione di un nuovo nodo
     Segnalazione* nuovoNodo = (Segnalazione*)malloc(sizeof(Segnalazione));
     if (nuovoNodo == NULL) {
         printf("Errore di allocazione memoria!\n");
         return head;
     }
 
-    // Assegnazione dei valori inseriti dall'utente
-    nuovoNodo->codice = (*contatoreId)++; // Assegna il codice identificativo e incrementa il contatore
+    //Assegnazione dei valori inseriti
+    nuovoNodo->codice = (*contatoreId)++; //Assegna il codice identificativo e incrementa il contatore
     
     printf("Inserisci nome cittadino: ");
-    scanf(" %[^\n]", nuovoNodo->nome); // Legge la stringa con gli spazi
+        scanf(" %[^\n]", nuovoNodo->nome); //Legge la stringa con gli spazi
     
     printf("Inserisci categoria (es. strade, illuminazione, rifiuti): ");
-    scanf(" %[^\n]", nuovoNodo->categoria);
+        scanf(" %[^\n]", nuovoNodo->categoria);
     
     printf("Inserisci descrizione: ");
-    scanf(" %[^\n]", nuovoNodo->descrizione);
+        scanf(" %[^\n]", nuovoNodo->descrizione);
     
     printf("Inserisci data (GG/MM/AAAA): ");
-    scanf("%s", nuovoNodo->data);
+        scanf("%s", nuovoNodo->data);
     
     printf("Inserisci livello urgenza (1-5): ");
-    scanf("%d", &nuovoNodo->urgenza);
+        scanf("%d", &nuovoNodo->urgenza);
     
-    nuovoNodo->stato = 0; // Lo stato iniziale è 0 (Aperta)
+    nuovoNodo->stato = 0; //Lo stato iniziale è 0 (Aperto)
     nuovoNodo->next = NULL;
 
-    // Inserimento in testa per ottimizzare i tempi (O(1))
+    //Inserimento in testa per l'ottimizzazione
     if (head == NULL) {
         head = nuovoNodo;
     } else {
@@ -38,13 +38,13 @@ Segnalazione* inserisciSegnalazione(Segnalazione* head, int* contatoreId) {
         head = nuovoNodo;
     }
     
-    printf("Segnalazione #%d inserita con successo!\n", nuovoNodo->codice);
+    printf("Segnalazione %d inserita con successo!\n", nuovoNodo->codice);
     return head;
 }
 
-// Funzione per visualizzare tutte le segnalazioni registrate
+//Funzione per visualizzare tutte le segnalazioni
 void visualizzaTutte(Segnalazione* head) {
-    Segnalazione* temp = head; // Puntatore temporaneo per scorrere la lista
+    Segnalazione* temp = head; //Puntatore per scorrere la lista
     if (temp == NULL) {
         printf("Nessuna segnalazione presente.\n");
         return;
@@ -55,17 +55,17 @@ void visualizzaTutte(Segnalazione* head) {
         printf("Cittadino: %s\n", temp->nome);
         printf("Categoria: %s\n", temp->categoria);
         printf("Urgenza: %d | Stato: %d (0=Aperta, 1=In lavorazione, 2=Chiusa)\n", temp->urgenza, temp->stato);
-        temp = temp->next; // Passa al nodo successivo
+        temp = temp->next; //Passa al nodo successivo
     }
 }
 
-// Funzione per la ricerca tramite categoria
+//Funzione per la ricerca tramite categoria
 void ricercaPerCategoria(Segnalazione* head, char* categoriaCercata) {
     Segnalazione* temp = head;
     int trovati = 0;
 
     while (temp != NULL) {
-        // strcmp compara due stringhe, restituisce 0 se sono identiche
+        //strcmp compara due stringhe ritornando 0 in caso di uguaglianza
         if (strcmp(temp->categoria, categoriaCercata) == 0) {
             printf("- Codice: %d | Descrizione: %s | Stato: %d\n", temp->codice, temp->descrizione, temp->stato);
             trovati++;
@@ -77,7 +77,7 @@ void ricercaPerCategoria(Segnalazione* head, char* categoriaCercata) {
     }
 }
 
-// Funzione per l'aggiornamento dello stato
+//Funzione per l'aggiornamento dello stato
 void aggiornaStato(Segnalazione* head, int codiceCercato, int nuovoStato) {
     Segnalazione* temp = head;
     while (temp != NULL) {
@@ -91,31 +91,31 @@ void aggiornaStato(Segnalazione* head, int codiceCercato, int nuovoStato) {
     printf("Segnalazione non trovata.\n");
 }
 
-// Funzione per l'eliminazione di una segnalazione
+//Funzione per l?eliminazione di una segnalazione
 Segnalazione* eliminaSegnalazione(Segnalazione* head, int codiceDaEliminare) {
     Segnalazione *temp = head, *prev = NULL;
 
-    // Se la lista è vuota
+    //Verifica contenuto lista
     if (temp != NULL && temp->codice == codiceDaEliminare) {
-        head = temp->next; // Sposta la testa
-        free(temp);        // Libera la memoria
+        head = temp->next;     //Sposta l'head
+        free(temp);            //Libera la memoria
         printf("Segnalazione eliminata.\n");
         return head;
     }
 
-    // Cerca il nodo da eliminare tenendo traccia del nodo precedente
+    //Cerca il nodo da eliminare non escludendo quello precedente
     while (temp != NULL && temp->codice != codiceDaEliminare) {
         prev = temp;
         temp = temp->next;
     }
 
-    // Se il codice non era presente
+    //Verifica presenza codice
     if (temp == NULL) {
         printf("Segnalazione non trovata.\n");
         return head;
     }
 
-    // Salta il nodo da eliminare e libera la memoria
+    //Salta il nodo da eliminare e libera la memoria
     prev->next = temp->next;
     free(temp);
     printf("Segnalazione eliminata.\n");
@@ -123,7 +123,7 @@ Segnalazione* eliminaSegnalazione(Segnalazione* head, int codiceDaEliminare) {
     return head;
 }
 
-// Funzione per generare un report aggregato
+//Funzione per generare un report aggregato
 void generaReport(Segnalazione* head) {
     int totale = 0, aperte = 0, inLavorazione = 0, chiuse = 0;
     Segnalazione* temp = head;
