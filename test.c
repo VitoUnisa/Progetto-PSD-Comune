@@ -6,20 +6,18 @@ int main() {
 
     int id = 1;
 
-    //creazione nodi test
-
+//creazione nodi test
     Segnalazione* s1 = (Segnalazione*)malloc(sizeof(Segnalazione));
     Segnalazione* s2 = (Segnalazione*)malloc(sizeof(Segnalazione));
+    Segnalazione* s3 = (Segnalazione*)malloc(sizeof(Segnalazione));
 
-    //controllo allocazione memoria
-
+//controllo allocazione memoria
     if(s1 == NULL || s2 == NULL) {
         printf("Errore allocazione memoria.\n");
         return 1;
     }
 
-    //prima segnalazione di test
-
+//prima segnalazione di test
     s1->codice = id++;
     strcpy(s1->nome, "Post Malone");
     strcpy(s1->categoria, "Buche");
@@ -28,8 +26,9 @@ int main() {
     s1->urgenza = 5;
     s1->stato = 0;
 
-    //Seconda segnalazione di test
 
+
+//Seconda segnalazione di test
     s2->codice = id++;
     strcpy(s2->nome, "Francesco Zalone");
     strcpy(s2->categoria, "Illuminazione");
@@ -38,15 +37,29 @@ int main() {
     s2->urgenza = 3;
     s2->stato = 1;
 
-    //collegamento della lista test
 
+
+//Terza segnalazione di test
+    s3->codice = id++;
+    strcpy(s3->nome, "Marco Merrino");
+    strcpy(s3->categoria, "Elettricita'");
+    strcpy(s3->descrizione, "Guasto elettrico al parco");
+    strcpy(s3->data, "8/03/2026");
+    s3->urgenza = 4;
+    s3->stato = 2;
+
+
+
+//collegamento della lista test
     s1->next = s2;
-    s2->next = NULL;
+    s2->next = s3;
+    s3->next = NULL;
 
-    Segnalazione* lista = s1;
+    Segnalazione* lista = s1;      //Puntatore remporaneo all'inizio della lista di test
 
-    //visualizza lista completa
 
+
+//visualizza lista completa
     printf("\nTEST INSERIMENTO\n");
     visualizzaTutte(lista);
 
@@ -60,7 +73,7 @@ int main() {
     ricercaPerCategoria(lista, "Buche");
 
     printf("\nTEST AGGIORNAMENTO STATO\n");
-    aggiornaStato(lista, 1, 2);
+    aggiornaStato(lista, 1, 4);
     visualizzaTutte(lista);
 
     printf("\nTEST VISUALIZZAZIONE PER STATO\n");
@@ -76,16 +89,17 @@ int main() {
     lista = eliminaSegnalazione(lista, 1);
     visualizzaTutte(lista);
 
-    //deallocazione memoria
+
+//deallocazione memoria
     liberaMemoria(lista);
 
     printf("\n===== TEST COMPLETATI! =====\n");
 
 
-    //Getchar per mantenere aperto il CMD
+//Getchar per mantenere aperto il CMD
     getchar();
     getchar();
 
     return 0;
-    //fine
+//fine
 }
