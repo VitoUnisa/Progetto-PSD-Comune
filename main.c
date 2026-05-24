@@ -1,3 +1,4 @@
+
 #include "segnalazioni.h"   //Header file di "segnalazioni.h"
 
 int main() {
@@ -25,17 +26,21 @@ int main() {
         scanf("%d", &scelta);   //Assume il valore da dare allo switch
 
 
-        //Switch per scelta dell'operazione
+    //Switch per scelta dell'operazione
         switch(scelta) {
 
             case 1:
+
+//Inserire nuova segnalazione
                 lista = inserisciSegnalazione(lista, &contatoreCodici);
                 break;
 
-            case 2:
+//visualizza tutte le segnalazioni
+                case 2:
                 visualizzaTutte(lista);   
                 break;
-            
+
+//Ricerca per codice
             case 3: {
                 char categoria[50];     
 
@@ -46,6 +51,7 @@ int main() {
                 break;
             }
 
+//Ricerca per codice
             case 4: {
                 int codice; 
 
@@ -56,6 +62,7 @@ int main() {
                 break;
             }
 
+//Aggiorna stato segnalazione esistente
             case 5: {
                 int codice, stato;
 
@@ -69,6 +76,7 @@ int main() {
                 break;
             }
 
+//Ricerca per stato
             case 6: {
                 int stato;
 
@@ -79,10 +87,12 @@ int main() {
                 break;
             }
 
+//Visualizzazione urgenti
             case 7:
                 visualizzaUrgenti(lista);
                 break;
 
+//Eliminazione segnalazione
             case 8: {
                 int codice;
 
@@ -93,14 +103,17 @@ int main() {
                 break;
             }
 
+//Genera report
             case 9:
                 generaReport(lista);
                 break;
 
+//Uscita dal programma
             case 0:
                 printf("Uscita dal programma.\n");
                 break;
 
+//Default  in caso di scelta non valida
             default:
                 printf("Scelta non valida.\n");
         }
