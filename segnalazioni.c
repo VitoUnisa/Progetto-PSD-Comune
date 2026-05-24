@@ -51,7 +51,7 @@ Segnalazione* inserisciSegnalazione(Segnalazione* head, int* contatoreId) {
 
     nuovoNodo->stato = 0;   //Stato iniziale
 
- //Assegnamento nuova testa
+    //Assegnamento nuova testa
     nuovoNodo->next = head;
 
     head = nuovoNodo;
@@ -247,6 +247,7 @@ Segnalazione* eliminaSegnalazione(Segnalazione* head, int codiceDaEliminare) {
 }
 
 
+
 //Generazione report
 void generaReport(Segnalazione* head) {
 
@@ -254,15 +255,19 @@ void generaReport(Segnalazione* head) {
     int aperte = 0;
     int lavorazione = 0;
     int chiuse = 0;
+ 
 
     Segnalazione* temp = head;      //Puntatore temporaneo ad head
 
+    printf("\n\n===== REPORT =====\n");
+    printf("-Segnalazioni aperte o chiuse-\n");
     while(temp != NULL) {
 
         totale++;
 
-        if(temp->stato == 0)
+        if(temp->stato == 0){
             aperte++;
+        }
 
         else if(temp->stato == 1)
             lavorazione++;
@@ -270,16 +275,23 @@ void generaReport(Segnalazione* head) {
         else if(temp->stato == 2)
             chiuse++;
 
+//Stampa report e dati
+ if(temp->stato == 0 || temp->stato == 2){
+                printf("Codice: %d\n", temp->codice);
+                printf("Nome cittadino: %s\n", temp->nome);
+                printf("Cateogria: %s\n", temp->categoria);
+                printf("Descrizione: %s\n", temp->descrizione);
+                printf("Data: %s\n", temp->data);
+                printf("Livello urgenza: %d\n", temp->urgenza);
+                printf("Stato: %d\n\n\n", temp->stato);
+            }
         temp = temp->next;
     }
-
-
-    //Stampa report e dati
-    printf("\n\n====== REPORT =====\n");
+    
     printf("Totale segnalazioni: %d\n", totale);
     printf("Segnalazioni aperte: %d\n", aperte);
     printf("Segnalazioni in lavorazione: %d\n", lavorazione);
-    printf("Segnalazioni chiuse: %d\n", chiuse);
+    printf("Segnalazioni chiuse: %d\n\n\n", chiuse);
 }
 
 //Eliminazione lista
