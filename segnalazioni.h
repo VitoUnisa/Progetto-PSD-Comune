@@ -9,7 +9,7 @@
 //Struttura delle segnalazioni
 typedef struct Segnalazione {
     int codice;             //Codice identificativo
-    char nome[50];          //Nome deò cittadino
+    char nome[50];          //Nome del cittadino
     char categoria[50];     //Categoria della segnalazione
     char descrizione[200];  //Descrizione della segnalazione
     char data[15];          //Data di inserimento
